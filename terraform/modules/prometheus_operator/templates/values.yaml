@@ -1,0 +1,18 @@
+additionalPrometheusRulesMap: 
+  rule-name:
+    groups:
+    - name: my_group
+      rules:
+      - alert: NewPodAdded
+        expr: count (kube_pod_created) - count (kube_pod_created offset 1m) > 0
+        for: 10m
+        labels:
+          severity: critical
+        annotations:
+          summary: "New pod added"
+          description: "New pod added"
+
+
+# https://github.com/Azure/prometheus-collector/blob/ffd3c2edc03f5c979b64427b1c4b87b905347a92/GeneratedMonitoringArtifacts/Default/recommendedMetricAlerts.json#L773
+# Azure: prometheus rule groups 
+#  limit 
